@@ -1,0 +1,7 @@
+<apex:page standardController="Performer__c" sidebar="false" showheader="false"
+  extensions="PerformerVideoController" standardStylesheets="false">
+    <iframe type="text/html" src="{!youTubeEmbedLink}" 
+        style="display:block; margin: 0 auto;" width="90%"
+        allowfullscreen="true" frameborder="0">
+    </iframe>
+</apex:page>

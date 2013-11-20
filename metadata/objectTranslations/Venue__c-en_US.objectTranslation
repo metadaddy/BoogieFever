@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Venue</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Venues</value>
+    </caseValues>
+    <fields>
+        <label><!-- Address Geo --></label>
+        <name>Address_Geo__c</name>
+    </fields>
+    <fields>
+        <label><!-- Alcohol --></label>
+        <name>Alcohol__c</name>
+        <picklistValues>
+            <masterLabel>Beer and Wine Only</masterLabel>
+            <translation><!-- Beer and Wine Only --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Full Bar</masterLabel>
+            <translation><!-- Full Bar --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- City Address --></label>
+        <name>City_Address__c</name>
+    </fields>
+    <fields>
+        <label><!-- Coat Check --></label>
+        <name>Coat_Check__c</name>
+    </fields>
+    <fields>
+        <label><!-- Good For Dancing --></label>
+        <name>Good_For_Dancing__c</name>
+    </fields>
+    <fields>
+        <label><!-- Happy Hour --></label>
+        <name>Happy_Hour__c</name>
+    </fields>
+    <fields>
+        <label><!-- Hours --></label>
+        <name>Hours__c</name>
+    </fields>
+    <fields>
+        <label><!-- Noise Level --></label>
+        <name>Noise_Level__c</name>
+        <picklistValues>
+            <masterLabel>Loud</masterLabel>
+            <translation><!-- Loud --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Moderate</masterLabel>
+            <translation><!-- Moderate --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Very Loud</masterLabel>
+            <translation><!-- Very Loud --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Parking --></label>
+        <name>Parking__c</name>
+        <picklistValues>
+            <masterLabel>Garage</masterLabel>
+            <translation><!-- Garage --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Private Lot</masterLabel>
+            <translation><!-- Private Lot --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Street</masterLabel>
+            <translation><!-- Street --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Valet</masterLabel>
+            <translation><!-- Valet --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Phone --></label>
+        <name>Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- State Address --></label>
+        <name>State_Address__c</name>
+    </fields>
+    <fields>
+        <label><!-- Street Address --></label>
+        <name>Street_Address__c</name>
+    </fields>
+    <fields>
+        <label><!-- URL --></label>
+        <name>URL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Wheelchair Accessible --></label>
+        <name>Wheelchair_Accessible__c</name>
+    </fields>
+    <fields>
+        <label><!-- Zip Address --></label>
+        <name>Zip_Address__c</name>
+    </fields>
+    <quickActions>
+        <label><!-- New Event --></label>
+        <name>New_Event</name>
+    </quickActions>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

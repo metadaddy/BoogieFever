@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Performer</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Performers</value>
+    </caseValues>
+    <fields>
+        <label><!-- Email --></label>
+        <name>Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Event --></label>
+        <name>Event__c</name>
+        <relationshipLabel><!-- Performers --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Genre --></label>
+        <name>Genre__c</name>
+        <picklistValues>
+            <masterLabel>Alternative</masterLabel>
+            <translation><!-- Alternative --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Disco</masterLabel>
+            <translation><!-- Disco --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Electronic</masterLabel>
+            <translation><!-- Electronic --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Jazz</masterLabel>
+            <translation><!-- Jazz --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>R&amp;B</masterLabel>
+            <translation><!-- R&amp;B --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rap</masterLabel>
+            <translation><!-- Rap --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rock &amp; Roll</masterLabel>
+            <translation><!-- Rock &amp; Roll --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Image ID --></label>
+        <name>Image_ID__c</name>
+    </fields>
+    <fields>
+        <label><!-- Phone --></label>
+        <name>Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Youtube URL --></label>
+        <name>Youtube_URL__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

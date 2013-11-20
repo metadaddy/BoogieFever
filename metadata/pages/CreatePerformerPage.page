@@ -1,0 +1,146 @@
+<apex:page standardController="ClubEvent__c" extensions="CreatePerformerController"
+    standardStylesheets="false" showheader="false" sidebar="false" applyHtmlTag="false"
+	docType="html-5.0">
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+        
+    <link rel="stylesheet" href="{!URLFOR($Resource.Mobile_Design_Templates, 'Mobile-Design-Templates/common/css/app.min.css')}"/>
+    <link rel="stylesheet" href="{!$Resource.style}"/>
+      
+    <script type="text/javascript" src="{!URLFOR($Resource.Mobile_Design_Templates, 'Mobile-Design-Templates/common/js/jQuery2.0.2.min.js')}"></script>
+    <script type="text/javascript" src="/canvas/sdk/js/publisher.js"></script>
+    <script type="text/javascript" src="{!URLFOR($Resource.Mobile_Design_Templates, 'Mobile-Design-Templates/common/js/main.min.js')}"></script>
+    <script type="text/javascript" src="{!$Resource.forcetk}"/>
+
+    <script type='text/javascript'>
+        var forcetkClient = new forcetk.Client();
+        forcetkClient.setSessionToken('{!$Api.Session_ID}');
+
+        Sfdc.canvas.publisher.publish({name: "publisher.setValidForSubmit",
+            payload:"true"});
+        Sfdc.canvas.publisher.subscribe({name: "publisher.post",
+            onData:function(e) {
+            insertPerformer();
+        }});
+        
+        function insertPerformer(){
+            CreatePerformerController.insertPerformer('{!ClubEvent__c.Id}',
+              $('#name').val(), $('#email').val(), function(performerId){
+                Sfdc.canvas.publisher.publish({name: "publisher.close",
+                    payload:{ refresh:"true"}});
+            });
+        }
+      
+        var imageData = null;
+        var fileName = null;
+      
+        function handlePhoto(evt){
+            var file = evt.target.files[0];
+            var reader = new FileReader();
+ 
+            reader.onload = (function(theFile) {
+                return function(e) {
+                    var dataURL = e.target.result;
+
+                    // Display thumbnail
+                    var img = $('<img class="center" width="90%">');
+                    img.attr('src', dataURL);
+                    $('#thumbnail').html(img);
+
+                    // Extract raw base64 data from data URL
+                    imageData = dataURL.split(',')[1];
+                    fileName = file.name;
+                };
+            })(file);
+ 
+            reader.readAsDataURL(file);
+        }
+      
+        $(document).ready(function() {
+    	  $("#photoButton").click(function() {
+            $("#photoFile").click();
+          });
+            
+          $("#photoFile").change(handlePhoto);
+		 });
+      
+        function insertPerformer(){
+            $("#status").show();
+            CreatePerformerController.insertPerformer('{!ClubEvent__c.Id}',
+              $('#name').val(), $('#email').val(), function(performerId){
+                $('#status').html("<p>Created performer record</p>");
+                // Upload the image data to Chatter files
+                forcetkClient.create('ContentVersion', {
+                    "Origin": "H",
+                    "PathOnClient": fileName,
+                    "VersionData": imageData
+                }, function(data) {
+                    $('#status').html("<p>Uploaded image</p>");
+                    makeContentVersionPublic(data.id, function(){
+                        $('#status').html("<p>Made image public</p>");
+                        forcetkClient.update('Performer__c', performerId, { 
+                            "Image_ID__c" : data.id 
+                        }, function(){
+                            $('#status').html("<p>Updated performer</p>");
+                            setTimeout(function(){
+                                Sfdc.canvas.publisher.publish({name: "publisher.close",
+                                    payload:{ refresh:"true"}});
+                            }, 500);
+                        }, onErrorSfdc);
+                    }, onErrorSfdc);          
+                }, onErrorSfdc);
+            });
+        }
+      
+        function onErrorSfdc(error) {
+            console.log("onErrorSfdc: " + JSON.stringify(error));
+            alert(JSON.stringify(error));
+        }
+        
+        function makeContentVersionPublic(contentVersionId, callback, error) {
+            CreatePerformerController.makeContentPublic(contentVersionId, 
+            function(result, event){
+                if (event.status) {
+                    callback();
+                } else {
+                    error(event);
+                }
+            });
+        }
+      
+    </script>
+  </head>
+  <body>
+  <div class="app-wrapper">
+    <section id="status" style="text-align: center; display: none;">
+      </section>
+      <section>
+        <div class="content">
+          <p>Name</p>
+          <div class="form-control-group">
+            <div class="form-control form-control-text">
+	          <input type="text" id="name"/>
+            </div>
+          </div>
+          <p>Email</p>
+          <div class="form-control-group">
+            <div class="form-control form-control-text">
+              <input type="email" id="email"/>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="thumbnail">
+      </section>
+      <section class="data-capture-buttons one-buttons">
+          <div class="content">
+            <input id="photoFile" type="file" accept="image/*" style="display: none;"/>
+            <a id="photoButton" href="#">Take Photo</a>
+          </div>
+      </section>
+    </div>
+  </body>
+</html>
+</apex:page>

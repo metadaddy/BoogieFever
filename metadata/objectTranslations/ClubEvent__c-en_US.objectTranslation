@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Event</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Events</value>
+    </caseValues>
+    <fields>
+        <label><!-- Age Group --></label>
+        <name>Age_Group__c</name>
+        <picklistValues>
+            <masterLabel>18+</masterLabel>
+            <translation><!-- 18+ --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>21+</masterLabel>
+            <translation><!-- 21+ --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>All Responsible Ages</masterLabel>
+            <translation><!-- All Responsible Ages --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Date --></label>
+        <name>Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Event Site --></label>
+        <name>Event_Site__c</name>
+    </fields>
+    <fields>
+        <label><!-- Promoter Number --></label>
+        <name>Promoter_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Twitter --></label>
+        <name>Twitter__c</name>
+    </fields>
+    <fields>
+        <label><!-- Venue --></label>
+        <name>Venue__c</name>
+        <relationshipLabel><!-- Events --></relationshipLabel>
+    </fields>
+    <quickActions>
+        <label><!-- Add Performer --></label>
+        <name>Add_Performer</name>
+    </quickActions>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

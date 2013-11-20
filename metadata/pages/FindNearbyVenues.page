@@ -1,0 +1,136 @@
+<apex:page sidebar="false" showheader="false" standardController="Venue__c" recordSetVar="clubs" extensions="FindNearby">
+    
+    <script type="text/javascript" 
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVrfZm7_NhbLjHrFPdl242BYV1PBmDPqs&sensor=false"> 
+    </script>
+        
+    <!-- Setup the map to take up the whole window --> 
+    <style>
+        html, body { height: 100%; }
+        .page-map, .ui-content, #map-canvas { width: 100%; height:100%; padding: 0; }
+        #map-canvas { height: min-height: 100%; }
+    </style>
+    
+    <script>
+        function initialize() {
+            var lat, lon;
+              
+             // If we can, get the position of the user via device geolocation
+             if (navigator.geolocation) {
+                 navigator.geolocation.getCurrentPosition(function(position){
+                     lat = position.coords.latitude;
+                     lon = position.coords.longitude;                    
+                     
+                     // Use Visualforce JavaScript Remoting to query for nearby clubs      
+                     Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.FindNearby.getNearby}', lat, lon,
+                         function(result, event){
+                             if (event.status) {
+                                 console.log(result);
+                                 createMap(lat, lon, result);           
+                             } else if (event.type === 'exception') {
+                                 //exception case code          
+                             } else {
+                                            
+                             }
+                          }, 
+                          {escape: true}
+                      );
+                  });
+              } else {
+                  // Set default values for map if the device doesn't have geolocation capabilities
+                    /** San Francisco **/
+                    lat = 37.77493;
+                    lon = -122.419416;
+                    
+                    var result = [];
+                    createMap(lat, lon, result);
+              }
+          
+         }
+    
+         function createMap(lat, lon, clubs){
+            // Get the map div, and center the map at the proper geolocation
+            var currentPosition = new google.maps.LatLng(lat,lon);
+            var mapDiv = document.getElementById('map-canvas');
+            var map = new google.maps.Map(mapDiv, {
+                center: currentPosition, 
+                zoom: 13,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+            
+            // Set a marker for the current location
+            var positionMarker = new google.maps.Marker({
+                map: map,
+                position: currentPosition,
+                icon: 'http://maps.google.com/mapfiles/ms/micons/green.png'
+            });
+            
+                        
+            // Keep track of the map boundary that holds all markers
+            var mapBoundary = new google.maps.LatLngBounds();
+            mapBoundary.extend(currentPosition);
+            
+            // Set markers on the map from the @RemoteAction results
+            var club;
+            for(var i=0; i<clubs.length;i++){
+                club = clubs[i];
+                console.log(clubs[i]);
+                setupMarker();
+            }
+            
+            // Resize map to neatly fit all of the markers
+            map.fitBounds(mapBoundary);
+
+           function setupMarker(){ 
+                var clubNavUrl;
+                
+                // Determine if we are in Salesforce1 and set navigation link appropriately
+                try{
+                    if(sforce.one){
+                        clubNavUrl = 
+                            'javascript:sforce.one.navigateToSObject(\'' + club.Id + '\')';
+                    }
+                } catch(err) {
+                    console.log(err);
+                    clubNavUrl = '\\' + club.Id;
+                }
+                
+                var clubDetails = 
+                    '<a href="' + clubNavUrl + '">' + 
+                    club.Name + '</a><br/>' + 
+                    club.Street_Address__c + '<br/>' + 
+                    club.City_Address__c + '<br/>' + 
+                    club.Phone__c;
+               
+               // Create the callout that will pop up on the marker     
+               var infowindow = new google.maps.InfoWindow({ 
+                   content: clubDetails
+               });
+               
+               // Place the marker on the map   
+               var marker = new google.maps.Marker({
+                   map: map,
+                   position: new google.maps.LatLng( 
+                                   club.Address_Geo__Latitude__s, 
+                                   club.Address_Geo__Longitude__s)
+               });
+               mapBoundary.extend(marker.getPosition());
+               
+               // Add the action to open up the panel when it's marker is clicked      
+               google.maps.event.addListener(marker, 'click', function(){
+                   infowindow.open(map, marker);
+               });
+           }
+        }
+        
+        // Fire the initialize function when the window loads
+        google.maps.event.addDomListener(window, 'load', initialize);
+        
+    </script>
+    
+    <!--  All content is rendered by the Google Maps code -->
+    <!--  This minimal HTML justs provide a target for GMaps to write to -->
+    <body style="font-family: Arial; border: 0 none;">
+        <div id="map-canvas"></div>
+    </body>
+</apex:page>

@@ -1,0 +1,11 @@
+<apex:page standardController="Performer__c" sidebar="false" showheader="false"
+    standardStylesheets="false">
+    <style>
+        img.center {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+    <img class="center" width="90%" src="/sfc/servlet.shepherd/version/download/{!Performer__c.Image_ID__c}"/>
+</apex:page>
