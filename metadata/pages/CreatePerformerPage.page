@@ -25,14 +25,6 @@
             insertPerformer();
         }});
         
-        function insertPerformer(){
-            CreatePerformerController.insertPerformer('{!ClubEvent__c.Id}',
-              $('#name').val(), $('#email').val(), function(performerId){
-                Sfdc.canvas.publisher.publish({name: "publisher.close",
-                    payload:{ refresh:"true"}});
-            });
-        }
-      
         var imageData = null;
         var fileName = null;
       
