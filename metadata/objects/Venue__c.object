@@ -260,8 +260,6 @@
         <columns>Street_Address__c</columns>
         <columns>City_Address__c</columns>
         <columns>URL__c</columns>
-        <columns>0BCi0000000TOCT</columns>
-        <columns>0BCi0000000TOCU</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
     </listViews>

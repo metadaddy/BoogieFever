@@ -26,10 +26,6 @@
     </types>
     <types>
         <members>*</members>
-        <name>AssignmentRules</name>
-    </types>
-    <types>
-        <members>*</members>
         <name>AuthProvider</name>
     </types>
     <types>
